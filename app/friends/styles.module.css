@@ -29,7 +29,40 @@
 .cardLowerDiv{
     height:14px;
 }
+/* styles.module.css */
+.lowerLoader {
+    height: 14px;
+    width: 100%;
+    position: relative;
+    background: linear-gradient(90deg, #EAEAEA , white, #EAEAEA, white);
+    background-size: 400% 400%;
+    border-radius: 10px;
+    animation: getanimation 4s linear infinite;
+}
 
+.upperLoader {
+    height: 18px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, #EAEAEA , white, #EAEAEA, white);
+    background-size: 400% 400%;
+    border-radius: 10px;
+    animation: getanimation 6s linear infinite;
+  }
+
+
+  @keyframes getanimation{
+	0% {
+		background-position: 400% 50%;
+	}
+	50% {
+		background-position: 200% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
   
  
 
