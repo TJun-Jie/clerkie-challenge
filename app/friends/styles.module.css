@@ -1,0 +1,61 @@
+.friendPageMainDiv {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 30px
+}
+
+
+.cardDiv {
+    width: 100%;
+    height: 114px;
+    margin-bottom: 15px ;
+    border: 1px solid #D7D7D7;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.cardUpperDiv {
+    margin-bottom: 10px;
+    height: 18px;
+}
+
+.cardLowerDiv{
+    height:14px;
+}
+
+  
+ 
+
+.friendHeader { 
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 25px;
+    align-items: center;
+    color: #D7D7D7;
+}
+
+.friendDivider {
+    margin-right: 15px;
+    margin-left: 15px;
+    border-left: 1px solid  ;
+    height: 28px;
+}
+
+.friendHeaderIcon {
+    border: 1px solid #ABABAB;
+    padding: 7.5px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.friendClear {
+    font-weight: 500;
+}
