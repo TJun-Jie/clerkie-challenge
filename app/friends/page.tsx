@@ -1,9 +1,9 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
-import FriendCard from "../components/Friends/FriendCard";
+import { useEffect, useState } from "react";
+import ClearButton from "../components/Button/ClearButton.component";
 import FriendFeed from "../components/Friends/FriendFeed";
 import Icon from "../components/Icon.component";
-import friendList, { Person, FriendStatus} from "../mockData";
+import friendList, { Person, FriendStatus } from "../mockData";
 import Loader from "./loader";
 import styles from "./styles.module.css";
 
@@ -17,11 +17,14 @@ const fetchFriends = () => {
 export default function Home() {
     // simulate data fetching
     const [allFriends, setAllFriends] = useState<Person[]>([]);
-    const [isLoading, setIsLoading] = useState<Boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [filteredFriends, setFilteredFriends] = useState<Person[]>([]);
-    const [closeFriendCheck, setCloseFriendCheck] = useState(false);
-    const [superCloseFriendCheck, setSuperCloseFriendCheck] = useState(false);
-    const [dropDownVisible, setdropDownVisible] = useState(false);
+    const [closeFriendCheck, setCloseFriendCheck] = useState<boolean>(false);
+    const [superCloseFriendCheck, setSuperCloseFriendCheck] =
+        useState<boolean>(false);
+    const [dropDownVisible, setdropDownVisible] = useState<boolean>(false);
+
+    const disableClearButtons = !(closeFriendCheck || superCloseFriendCheck);
 
     const showDropdown = () => {
         setdropDownVisible(true);
@@ -32,33 +35,39 @@ export default function Home() {
     };
 
     const clearAllFilters = () => {
-      setCloseFriendCheck(false);
-      setSuperCloseFriendCheck(false);
-    }
+        setCloseFriendCheck(false);
+        setSuperCloseFriendCheck(false);
+    };
 
     const clearAllFiltersAndApply = () => {
-      clearAllFilters();
-      setFilteredFriends(allFriends);
-    }
+        clearAllFilters();
+        setFilteredFriends(allFriends);
+    };
 
     const onApplyFilters = () => {
-      let newlyFilteredFriends = allFriends;
-  
-      if (closeFriendCheck || superCloseFriendCheck) {
-          newlyFilteredFriends = allFriends.filter((friend) => {
-              if (closeFriendCheck && friend.status === FriendStatus.CloseFriends) {
-                  return true;
-              }
-              if (superCloseFriendCheck && friend.status === FriendStatus.SuperCloseFriends) {
-                  return true;
-              }
-              return false;
-          });
-      }
-  
-      setFilteredFriends(newlyFilteredFriends);
-      setdropDownVisible(false);
-  }
+        let newlyFilteredFriends = allFriends;
+
+        if (closeFriendCheck || superCloseFriendCheck) {
+            newlyFilteredFriends = allFriends.filter((friend) => {
+                if (
+                    closeFriendCheck &&
+                    friend.status === FriendStatus.CloseFriends
+                ) {
+                    return true;
+                }
+                if (
+                    superCloseFriendCheck &&
+                    friend.status === FriendStatus.SuperCloseFriends
+                ) {
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        setFilteredFriends(newlyFilteredFriends);
+        setdropDownVisible(false);
+    };
 
     useEffect(() => {
         const fetchFriendsData = async () => {
@@ -70,15 +79,18 @@ export default function Home() {
 
         fetchFriendsData();
     }, []);
-
     return (
         <div className={styles.friendPageMainDiv}>
             <div className={styles.friendHeader}>
                 {dropDownVisible && (
                     <div className={styles.dropdown}>
                         <div className={styles.dropdownHeader}>
-                            <button onClick={clearAllFilters}>Clear All</button>
-                            
+                            <ClearButton
+                                onClick={clearAllFilters}
+                                content={"Clear All"}
+                                disabled={disableClearButtons}
+                            />
+
                             <div className={styles.dropdownTextBold}>
                                 Filter
                             </div>
@@ -89,7 +101,7 @@ export default function Home() {
                                 <Icon
                                     title="CancelIcon"
                                     dimensions={17}
-                                    spaced = {false}
+                                    spaced={false}
                                 ></Icon>
                             </button>
                         </div>
@@ -135,11 +147,34 @@ export default function Home() {
                         </button>
                     </div>
                 )}
-                <button className={styles.clearButton} onClick={showDropdown}>
-                    <Icon title="FriendHeaderIcon" dimensions={20} spaced={true}></Icon>
+                <button
+                    className={`${styles.dropdownMenuButton}  ${
+                        dropDownVisible ? styles.activeDropDownMenuButton : ""
+                    }`}
+                    onClick={showDropdown}
+                >
+                    {dropDownVisible ? (
+                        <Icon
+                            title="ActiveOpenFilterIcon"
+                            dimensions={20}
+                            spaced={true}
+                        ></Icon>
+                    ) : (
+                        <Icon
+                            title="OpenFilterIcon"
+                            dimensions={20}
+                            spaced={true}
+                        ></Icon>
+                    )}
                 </button>
                 <div className={styles.friendDivider}></div>
-                <div className={styles.friendClear}><button onClick={clearAllFiltersAndApply}>Clear all</button></div>
+                <div className={styles.friendClear}>
+                    <ClearButton
+                        content="Clear All"
+                        onClick={clearAllFiltersAndApply}
+                        disabled={disableClearButtons}
+                    />
+                </div>
             </div>
             {isLoading ? <Loader /> : <FriendFeed friends={filteredFriends} />}
         </div>

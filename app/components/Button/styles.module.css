@@ -1,0 +1,16 @@
+
+.clearButton {
+    background-color: transparent;
+    border: none; 
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0;
+    color: #3399FF;
+}
+
+
+.disabledButton {
+    color: #D7D7D7;
+    cursor: default;
+}

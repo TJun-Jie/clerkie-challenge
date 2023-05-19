@@ -94,7 +94,7 @@
     font-weight: 500;
 }
 
-.clearButton {
+.dropdownMenuButton {
     background: none;
     cursor: pointer;
     outline: none;   
@@ -107,17 +107,9 @@
     
 }
 
-.clearButton:hover{
-    color: darken(black, 10%);
- }
-
-.clearButton {
-    /* ...other styles... */
-    transition: transform 0.1s;
-}
-
-.clearButton:active {
-    transform: scale(1.1);
+.activeDropDownMenuButton {
+    background-color: #424242;
+    color: white;
 }
 
 .dropdown {
@@ -207,3 +199,4 @@
     align-items: center;
      
 }
+
