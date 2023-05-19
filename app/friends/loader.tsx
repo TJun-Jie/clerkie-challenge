@@ -1,8 +1,7 @@
 import styles from "./styles.module.css";
-export default function Loading() {
-    // You can add any UI inside Loading, including a Skeleton.
+export default function Loader() {
     return (
-    <div className={styles.friendPageMainDiv}>
+    <div>
         {Array.from({ length: 6 }).map((_, index) => (
 
         <div className={styles.cardDiv} key={index}>

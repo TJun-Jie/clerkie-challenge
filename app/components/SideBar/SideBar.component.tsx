@@ -20,13 +20,13 @@ const SideBar: FC = () => {
     return (
   <div className={styles.sidebar}>
     <div className={styles.sidebarHeader}>
-      <Icon src="/ClerkieIcon.svg" alt="clerkie icon" dimensions={20}/>
+      <Icon title={"ClerkieIcon"} dimensions={20} spaced={true}/>
       <span>Clerkie Challenge</span>
     </div>
     {navLinks.map( (link) => (
           <Link href={link.path} key={link.path}>
           <div className={`${styles.link} ${pathname== link.path ? styles.activeLink : " "}`}>
-              <Icon src="/Home.svg" alt="Home Icon" dimensions={24}/>
+              <Icon title={link.title}  dimensions={24} spaced={true}/>
               <span>{link.title}</span>
           </div>
       </Link>

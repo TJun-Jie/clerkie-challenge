@@ -2,14 +2,14 @@ import Image from 'next/image';
 import { FC } from 'react';
 
 interface IconProps {
-    src: string;
-    alt: string;
+    title: string;
     dimensions: number;
+    spaced: boolean;
 }
 
-const Icon: FC<IconProps> = ({ src, alt, dimensions}) => {
+const Icon: FC<IconProps> = ({ title, dimensions, spaced}) => {
     return (
-        <Image src={src} alt={alt} width={dimensions} height={dimensions} style={{marginLeft: '10px', marginRight: '10px'}} />
+        <Image src={`/${title}.svg`} alt={title} width={dimensions} height={dimensions} style={spaced ? {marginLeft: '10px', marginRight: '10px'} : {}} />
     );
 }
 
