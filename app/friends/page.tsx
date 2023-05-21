@@ -1,6 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ClearButton from "../components/Button/ClearButton.component";
+import IconButton from "../components/Button/IconButton.component";
+import DropdownFilter from "../components/DropdownFilter/DropdownFilter.component";
 import FriendFeed from "../components/Friends/FriendFeed";
 import Icon from "../components/Icon.component";
 import friendList, { Person, FriendStatus } from "../mockData";
@@ -14,7 +16,7 @@ const fetchFriends = () => {
         }, 1000);
     });
 };
-export default function Home() {
+const Friends: FC = () => {
     // simulate data fetching
     const [allFriends, setAllFriends] = useState<Person[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -24,14 +26,11 @@ export default function Home() {
         useState<boolean>(false);
     const [dropDownVisible, setdropDownVisible] = useState<boolean>(false);
 
-    const disableClearButtons = !(closeFriendCheck || superCloseFriendCheck);
+    const disableOuterClearButton =
+        allFriends.length === filteredFriends.length;
 
     const showDropdown = () => {
         setdropDownVisible(true);
-    };
-
-    const hideDropdown = () => {
-        setdropDownVisible(false);
     };
 
     const clearAllFilters = () => {
@@ -82,101 +81,41 @@ export default function Home() {
     return (
         <div className={styles.friendPageMainDiv}>
             <div className={styles.friendHeader}>
-                {dropDownVisible && (
-                    <div className={styles.dropdown}>
-                        <div className={styles.dropdownHeader}>
-                            <ClearButton
-                                onClick={clearAllFilters}
-                                content={"Clear All"}
-                                disabled={disableClearButtons}
-                            />
-
-                            <div className={styles.dropdownTextBold}>
-                                Filter
-                            </div>
-                            <button
-                                className={styles.cancelButton}
-                                onClick={hideDropdown}
-                            >
-                                <Icon
-                                    title="CancelIcon"
-                                    dimensions={17}
-                                    spaced={false}
-                                ></Icon>
-                            </button>
-                        </div>
-                        <div className={styles.dropdownSeparator}></div>
-                        <div className={styles.dropdownContent}>
-                            <div className={styles.dropdownStatus}>
-                                Friend Status
-                            </div>
-                            <div className={styles.dropdownCheckBoxGroup}>
-                                <div className={styles.dropdownTextBold}>
-                                    Close Friends
-                                </div>
-                                <input
-                                    className={styles.dropdownCheckBox}
-                                    type="checkbox"
-                                    checked={closeFriendCheck}
-                                    onChange={(e) =>
-                                        setCloseFriendCheck(e.target.checked)
-                                    }
-                                />
-                            </div>
-                            <div className={styles.dropdownCheckBoxGroup}>
-                                <div className={styles.dropdownTextBold}>
-                                    Super Close Friends{" "}
-                                </div>
-                                <input
-                                    className={styles.dropdownCheckBox}
-                                    type="checkbox"
-                                    checked={superCloseFriendCheck}
-                                    onChange={(e) =>
-                                        setSuperCloseFriendCheck(
-                                            e.target.checked
-                                        )
-                                    }
-                                />
-                            </div>
-                        </div>
-                        <button
-                            className={styles.dropdownApplyButton}
-                            onClick={onApplyFilters}
-                        >
-                            Apply
-                        </button>
-                    </div>
-                )}
-                <button
+                <DropdownFilter
+                    closeFriendCheck={closeFriendCheck}
+                    superCloseFriendCheck={superCloseFriendCheck}
+                    setCloseFriendCheck={setCloseFriendCheck}
+                    setSuperCloseFriendCheck={setSuperCloseFriendCheck}
+                    onApply={onApplyFilters}
+                    clearAllFilters={clearAllFilters}
+                    visible={dropDownVisible}
+                    setVisible={setdropDownVisible}
+                />
+                <IconButton
+                    onClick={showDropdown}
                     className={`${styles.dropdownMenuButton}  ${
                         dropDownVisible ? styles.activeDropDownMenuButton : ""
                     }`}
-                    onClick={showDropdown}
-                >
-                    {dropDownVisible ? (
-                        <Icon
-                            title="ActiveOpenFilterIcon"
-                            dimensions={20}
-                            spaced={true}
-                        ></Icon>
-                    ) : (
-                        <Icon
-                            title="OpenFilterIcon"
-                            dimensions={20}
-                            spaced={true}
-                        ></Icon>
-                    )}
-                </button>
+                    iconTitle={
+                        dropDownVisible
+                            ? "ActiveOpenFilterIcon"
+                            : "OpenFilterIcon"
+                    }
+                    iconDimensions={20}
+                    iconSpaced={true}
+                />
                 <div className={styles.friendDivider}></div>
                 <div className={styles.friendClear}>
                     <ClearButton
                         content="Clear All"
                         onClick={clearAllFiltersAndApply}
-                        disabled={disableClearButtons}
+                        disabled={disableOuterClearButton}
                     />
                 </div>
             </div>
             {isLoading ? <Loader /> : <FriendFeed friends={filteredFriends} />}
         </div>
     );
-}
+};
+
+export default Friends;

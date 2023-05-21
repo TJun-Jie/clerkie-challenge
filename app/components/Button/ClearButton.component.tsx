@@ -1,22 +1,28 @@
-import { FC, MouseEventHandler } from 'react';
+import { FC, MouseEventHandler } from "react";
+import Button from "./Button.component";
 import styles from "./styles.module.css";
 
-interface IconProps {
-    content: string ;
+interface ClearButtonProps {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     disabled?: boolean;
+    className?: string;
+    content: string;
 }
 
-
-
-
-
-const ClearButton: FC<IconProps> = ({ content, onClick , disabled}) => {
+const ClearButton: React.FC<ClearButtonProps> = ({
+    onClick,
+    disabled,
+    content,
+}) => {
     return (
-        <button className={`${styles.clearButton} ${disabled ? styles.disabledButton: " "}`} onClick={disabled ? null : onClick}>
+        <Button
+            onClick={onClick}
+            disabled={disabled}
+            className={`${styles.clearButton}`}
+        >
             {content}
-        </button>
+        </Button>
     );
-}
+};
 
 export default ClearButton;

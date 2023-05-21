@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './page.module.css';
+import React from "react";
+import styles from "./page.module.css";
 
 const Home: React.FC = () => {
     return (
@@ -9,6 +9,6 @@ const Home: React.FC = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Home;
