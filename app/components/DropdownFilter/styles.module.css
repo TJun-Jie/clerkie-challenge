@@ -51,7 +51,7 @@
 
 .dropdownApplyButton {
   background-color: #424242;
-  border-radius: 8px;
+  border-radius: 6px;
   border-style: none;
   box-sizing: border-box;
   color: #FFFFFF;
@@ -60,7 +60,7 @@
   font-weight: 600;
   height: 45px;
   list-style: none;
-  margin: 10px;
+  margin: 0 10px 15px 10px;
   outline: none;
   text-align: center;
   text-decoration: none;
