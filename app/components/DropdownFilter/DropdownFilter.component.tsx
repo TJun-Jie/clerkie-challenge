@@ -4,32 +4,38 @@ import IconButton from "../Button/IconButton.component";
 import styles from "./styles.module.css";
 
 interface DropdownProps {
-    closeFriendCheck: boolean;
-    superCloseFriendCheck: boolean;
-    setCloseFriendCheck: Dispatch<SetStateAction<boolean>>;
-    setSuperCloseFriendCheck: Dispatch<SetStateAction<boolean>>;
-    onApply: () => void;
-    clearAllFilters: () => void;
+    onApply: (newCloseFriendState: boolean, newSuperCloseFriendState: boolean) => void;
     visible: boolean;
     setVisible: (state: boolean) => void;
+    unconfirmedCloseFriendCheck: boolean;
+    unconfirmedSuperCloseFriendCheck: boolean;
+    setUnconfirmedCloseFriendCheck: Dispatch<SetStateAction<boolean>>;
+    setUnconfirmedSuperCloseFriendCheck: Dispatch<SetStateAction<boolean>>;
 }
 
 const DropdownFilter: FC<DropdownProps> = ({
-    closeFriendCheck,
-    superCloseFriendCheck,
-    setCloseFriendCheck,
-    setSuperCloseFriendCheck,
     onApply,
-    clearAllFilters,
     visible,
     setVisible,
+    unconfirmedCloseFriendCheck,
+    unconfirmedSuperCloseFriendCheck,
+    setUnconfirmedCloseFriendCheck,
+    setUnconfirmedSuperCloseFriendCheck
+    
 }) => {
+
     const disableInnerClearButtons = !(
-        closeFriendCheck || superCloseFriendCheck
+        unconfirmedCloseFriendCheck || unconfirmedSuperCloseFriendCheck
     );
 
     const hideDropdown = () => {
         setVisible(false);
+    };
+
+
+    const clearAllFilters = () => {
+        setUnconfirmedCloseFriendCheck(false);
+        setUnconfirmedSuperCloseFriendCheck(false);
     };
 
     return (
@@ -60,9 +66,9 @@ const DropdownFilter: FC<DropdownProps> = ({
                         <input
                             className={styles.dropdownCheckBox}
                             type="checkbox"
-                            checked={closeFriendCheck}
+                            checked={unconfirmedCloseFriendCheck}
                             onChange={(e) =>
-                                setCloseFriendCheck(e.target.checked)
+                                setUnconfirmedCloseFriendCheck(e.target.checked)
                             }
                         />
                     </div>
@@ -73,16 +79,16 @@ const DropdownFilter: FC<DropdownProps> = ({
                         <input
                             className={styles.dropdownCheckBox}
                             type="checkbox"
-                            checked={superCloseFriendCheck}
+                            checked={unconfirmedSuperCloseFriendCheck}
                             onChange={(e) =>
-                                setSuperCloseFriendCheck(e.target.checked)
+                                setUnconfirmedSuperCloseFriendCheck(e.target.checked)
                             }
                         />
                     </div>
                 </div>
                 <button
                     className={styles.dropdownApplyButton}
-                    onClick={onApply}
+                    onClick={() => {onApply(unconfirmedCloseFriendCheck, unconfirmedSuperCloseFriendCheck)}}
                 >
                     Apply
                 </button>

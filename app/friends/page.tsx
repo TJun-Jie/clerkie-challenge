@@ -24,28 +24,33 @@ const Friends: FC = () => {
     const [closeFriendCheck, setCloseFriendCheck] = useState<boolean>(false);
     const [superCloseFriendCheck, setSuperCloseFriendCheck] =
         useState<boolean>(false);
-    const [dropDownVisible, setdropDownVisible] = useState<boolean>(false);
 
-    const disableOuterClearButton =
-        allFriends.length === filteredFriends.length;
+    const [unconfirmedCloseFriendCheck, setUnconfirmedCloseFriendCheck] =
+        useState<boolean>(false);
+    const [
+        unconfirmedSuperCloseFriendCheck,
+        setUnconfirmedSuperCloseFriendCheck,
+    ] = useState<boolean>(false);
+    const [dropDownVisible, setdropDownVisible] = useState<boolean>(false);
+    const [numberOfSelectedFilters, setNumberOfSelectedFilters] =
+        useState<number>(0);
+    const [clearButtonDisabled, setClearButtonDisabled] =
+        useState<boolean>(false);
+
+    let hasActiveFilters = numberOfSelectedFilters > 0;
 
     const showDropdown = () => {
         setdropDownVisible(true);
     };
 
-    const clearAllFilters = () => {
-        setCloseFriendCheck(false);
-        setSuperCloseFriendCheck(false);
-    };
-
-    const clearAllFiltersAndApply = () => {
-        clearAllFilters();
-        setFilteredFriends(allFriends);
-    };
-
-    const onApplyFilters = () => {
+    useEffect(() => {
+        const numberOfFilters = [
+            closeFriendCheck,
+            superCloseFriendCheck,
+        ].filter(Boolean).length;
+        setNumberOfSelectedFilters(numberOfFilters);
+        setClearButtonDisabled(numberOfFilters == 0);
         let newlyFilteredFriends = allFriends;
-
         if (closeFriendCheck || superCloseFriendCheck) {
             newlyFilteredFriends = allFriends.filter((friend) => {
                 if (
@@ -65,6 +70,23 @@ const Friends: FC = () => {
         }
 
         setFilteredFriends(newlyFilteredFriends);
+    }, [closeFriendCheck, superCloseFriendCheck, allFriends]);
+
+    const clearAllFiltersAndApply = () => {
+        setCloseFriendCheck(false);
+        setSuperCloseFriendCheck(false);
+        setFilteredFriends(allFriends);
+        setClearButtonDisabled(true);
+        setUnconfirmedCloseFriendCheck(false);
+        setUnconfirmedSuperCloseFriendCheck(false);
+    };
+
+    const onApplyFilters = (
+        newCloseFriendState: boolean,
+        newSuperCloseFriendState: boolean
+    ) => {
+        setCloseFriendCheck(newCloseFriendState);
+        setSuperCloseFriendCheck(newSuperCloseFriendState);
         setdropDownVisible(false);
     };
 
@@ -82,34 +104,38 @@ const Friends: FC = () => {
         <div className={styles.friendPageMainDiv}>
             <div className={styles.friendHeader}>
                 <DropdownFilter
-                    closeFriendCheck={closeFriendCheck}
-                    superCloseFriendCheck={superCloseFriendCheck}
-                    setCloseFriendCheck={setCloseFriendCheck}
-                    setSuperCloseFriendCheck={setSuperCloseFriendCheck}
                     onApply={onApplyFilters}
-                    clearAllFilters={clearAllFilters}
                     visible={dropDownVisible}
                     setVisible={setdropDownVisible}
+                    unconfirmedCloseFriendCheck={unconfirmedCloseFriendCheck}
+                    unconfirmedSuperCloseFriendCheck={unconfirmedSuperCloseFriendCheck}
+                    setUnconfirmedCloseFriendCheck={setUnconfirmedCloseFriendCheck}
+                    setUnconfirmedSuperCloseFriendCheck={setUnconfirmedSuperCloseFriendCheck}
                 />
                 <IconButton
                     onClick={showDropdown}
                     className={`${styles.dropdownMenuButton}  ${
-                        dropDownVisible ? styles.activeDropDownMenuButton : ""
+                        hasActiveFilters ? styles.activeDropDownMenuButton : ""
                     }`}
                     iconTitle={
-                        dropDownVisible
+                        hasActiveFilters
                             ? "ActiveOpenFilterIcon"
                             : "OpenFilterIcon"
                     }
                     iconDimensions={20}
                     iconSpaced={true}
+                    content={
+                        hasActiveFilters
+                            ? numberOfSelectedFilters.toString()
+                            : ""
+                    }
                 />
                 <div className={styles.friendDivider}></div>
                 <div className={styles.friendClear}>
                     <ClearButton
                         content="Clear All"
                         onClick={clearAllFiltersAndApply}
-                        disabled={disableOuterClearButton}
+                        disabled={clearButtonDisabled}
                     />
                 </div>
             </div>

@@ -14,3 +14,7 @@
     color: #D7D7D7;
     cursor: default;
 }
+
+.iconButtonContent {
+    padding-right: 10px;
+}
