@@ -1,34 +1,27 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Extra Features
 
-## Getting Started
+### 1. TypeScript
 
-First, run the development server:
+This project is set up with TypeScript which brings several advantages:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **Type Safety:** Type safety at compile time helps to catch errors early, leading to safer, more predictable code.
+- **Improved Developer Productivity:** Thanks to autocompletion, smart suggestions, and detailed error messages provided by TypeScript, your development process is more efficient and productive.
+- **Better Code Quality:** TypeScript's static typing can lead to cleaner, more precise code and supports object-oriented programming patterns.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Fade Animation Loader
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+This project incorporates a fade animation loader. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 3. Custom Button Component
 
-## Learn More
+We have a Custom Button Component in this project. This standard button component can be reused throughout the application, providing a consistent look and feel. The benefits are:
 
-To learn more about Next.js, take a look at the following resources:
+- **Consistency Across the App:** Reusable components provide a consistent user interface, leading to a more coherent user experience.
+- **Efficiency:** Instead of rewriting the same code, developers can reuse components, which is a more efficient use of time and resources.
+- **Easy to Maintain and Update:** Changes need to be made only at one place, reducing the chance of errors and inconsistencies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 4. Conventional Commit
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. The benefits of using this approach are:
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **Improved Readability:** The commit history is more readable, and it's easier to understand the history at a glance.
