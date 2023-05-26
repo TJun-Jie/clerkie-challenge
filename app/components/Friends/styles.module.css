@@ -8,6 +8,8 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 30px;
+    text-decoration: none;
+    color: black
 }
 
 .cardUpperDiv {
@@ -57,4 +59,17 @@
 .cardNumber {
     margin-left: 5px;
 
+}
+
+.friendDetailDiv {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    border: 1px solid #D7D7D7;
+    border-radius: 5px;
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
+    
 }

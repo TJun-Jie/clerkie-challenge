@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import { FriendStatus } from "../../mockData";
 import styles from "./styles.module.css";
@@ -7,6 +8,7 @@ interface FriendCardProps {
     status?: string;
     email: string;
     phoneNumber: string;
+    id: number;
 }
 
 const FriendCard: FC<FriendCardProps> = ({
@@ -14,6 +16,7 @@ const FriendCard: FC<FriendCardProps> = ({
     status,
     email,
     phoneNumber,
+    id,
 }) => {
     const getStatusClassName = () => {
         if (status === FriendStatus.CloseFriends) {
@@ -24,7 +27,7 @@ const FriendCard: FC<FriendCardProps> = ({
         return "";
     };
     return (
-        <div className={styles.cardDiv}>
+        <Link href={`/friendDetail/${id}`} className={styles.cardDiv}>
             <div className={styles.cardUpperDiv}>
                 <div className={styles.cardName}>{name}</div>
                 {status && (
@@ -42,7 +45,7 @@ const FriendCard: FC<FriendCardProps> = ({
                 <span>&#x2022;</span>
                 <div className={styles.cardNumber}>{phoneNumber}</div>
             </div>
-        </div>
+        </Link>
     );
 };
 

@@ -16,6 +16,7 @@ const FriendFeed: FC<FriendFeedProps> = ({ friends }) => {
                     status={friend.status}
                     email={friend.email}
                     phoneNumber={friend.phoneNumber}
+                    id={friend.id}
                 />
             ))}
         </>
